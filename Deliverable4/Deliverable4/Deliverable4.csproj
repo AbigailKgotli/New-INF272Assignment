@@ -25,7 +25,6 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -199,7 +198,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
@@ -366,11 +364,6 @@
     <Content Include="Views\PersonLanguages\Details.cshtml" />
     <Content Include="Views\PersonLanguages\Edit.cshtml" />
     <Content Include="Views\PersonLanguages\Index.cshtml" />
-    <Content Include="Views\Cities\Create.cshtml" />
-    <Content Include="Views\Cities\Delete.cshtml" />
-    <Content Include="Views\Cities\Details.cshtml" />
-    <Content Include="Views\Cities\Edit.cshtml" />
-    <Content Include="Views\Cities\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
