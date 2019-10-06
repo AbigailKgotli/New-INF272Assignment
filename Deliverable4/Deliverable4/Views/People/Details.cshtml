@@ -1,0 +1,82 @@
+﻿@model Deliverable4.Models.Person
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Person</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonSurname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonSurname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonCell)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonCell)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CriminalRecord)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CriminalRecord)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JobID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JobID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City.CityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City.CityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Username)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PersonID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
