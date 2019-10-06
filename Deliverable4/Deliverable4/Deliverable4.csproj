@@ -199,6 +199,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobOpportunitiesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\PersonLanguagesController.cs" />
@@ -364,6 +365,7 @@
     <Content Include="Views\PersonLanguages\Details.cshtml" />
     <Content Include="Views\PersonLanguages\Edit.cshtml" />
     <Content Include="Views\PersonLanguages\Index.cshtml" />
+    <Content Include="Views\JobOpportunities\JobOpportunities.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
