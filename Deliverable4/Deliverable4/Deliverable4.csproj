@@ -368,6 +368,7 @@
     <Content Include="Views\PersonLanguages\Index.cshtml" />
     <Content Include="Views\JobOpportunities\JobOpportunities.cshtml" />
     <Content Include="Views\Update\Index.cshtml" />
+    <Content Include="Views\People\ViewApplicants.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

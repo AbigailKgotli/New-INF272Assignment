@@ -641,7 +641,7 @@
             <PropertyRef Name="QualificationID" />
           </Key>
           <Property Name="QualificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="QualificationDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QualificationDescription" Type="String" />
           <NavigationProperty Name="JobQualifications" Relationship="Self.FK_JobQualification_Qualification" FromRole="Qualification" ToRole="JobQualification" />
           <NavigationProperty Name="PersonQualifications" Relationship="Self.FK_PersonQualification_Qualification" FromRole="Qualification" ToRole="PersonQualification" />
         </EntityType>

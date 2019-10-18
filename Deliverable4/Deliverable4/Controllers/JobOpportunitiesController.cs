@@ -14,7 +14,7 @@ namespace Deliverable4.Controllers
         {
             JobItDBEntities db= new JobItDBEntities();
             List<SelectListItem> items = new List<SelectListItem>();
-            db.Jobs.Where(zz => zz.JobQualifications= "").ToList();
+            db.Jobs.Where(zz => zz.JobQualifications.Where(xx => xx.Qualification.QualificationDescription =="hvf" ).ToList();
             //items.Add(new SelectListItem() { Text = "1", Value = "1" });
             //items.Add(new SelectListItem() { Text = "2", Value = "2" });
             //items.Add(new SelectListItem() { Text = "3", Value = "3" });

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Deliverable4.Models.Person>
+
+@{
+    ViewBag.Title = "View Applicants";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonSurname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonCell)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CriminalRecord)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City.CityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Username)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonSurname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonCell)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CriminalRecord)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City.CityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Username)
+            </td>
+            </tr>
+    }
+       </table>     

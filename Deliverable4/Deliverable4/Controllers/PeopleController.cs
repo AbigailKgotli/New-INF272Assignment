@@ -123,6 +123,10 @@ namespace Deliverable4.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult ViewApplicants()
+        {
+            return View();
+        }
 
         protected override void Dispose(bool disposing)
         {
