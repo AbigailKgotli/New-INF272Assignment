@@ -1,0 +1,53 @@
+﻿@model Deliverable4.Models.Person
+
+@{
+    ViewBag.Title = "Register User";
+}
+
+<h2>Register User</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <label for="FName">First Name:</label><br />
+    <input id="Name" type="text" name="Name" required /> <br />
+
+    <label for="Lastname">Last Name:</label><br />
+    <input id="LName" type="text" name="LName" required /> <br />
+
+    <label for="ID">ID:</label><br />
+    <input id="ID" type="text" name="ID" required /> <br />
+
+    <label for="Cell">Cellphone number:</label><br />
+    <input id="Cell" type="text" name="Cell" required /> <br />
+
+    <label for="Email">Email address:</label><br />
+    <input id="Email" type="text" name="Email" required /> <br />
+
+    <label for="UserID">UserID:</label><br />
+    <input id="UserID" type="text" name="UserID" required /> <br />
+
+    <label for="CityID">CityID:</label><br />
+    <input id="CityID" type="text" name="CityID" required /> <br />
+
+
+
+    <input type="checkbox" name="Criminal Record" value="Criminal Record" />
+    <label for="Criminal Record">Criminal Record:</label><br />
+
+
+    @*<button type="submit">Register</button>*@
+
+    <input id="btnHome" style="text-align:center" type="button" name="RegisterUser" value="RegisterUser" onclick="location.href='@Url.Action("Create", "People", FormMethod.Get)'" /><br />
+
+    <input id="btn" type="button" name="Home" value="Back" onclick="location.href='@Url.Action("Homepage", "People", FormMethod.Get)'" />
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
