@@ -10,124 +10,123 @@ using Deliverable4.Models;
 
 namespace Deliverable4.Controllers
 {
-    public class PeopleController : Controller
+    public class CompaniesController : Controller
     {
         private JobItDBEntities db = new JobItDBEntities();
 
-        // GET: People
+        // GET: Companies
         public ActionResult Index()
         {
-            var people = db.People.Include(p => p.City).Include(p => p.User);
-            return View(people.ToList());
+            var companies = db.Companies.Include(c => c.City).Include(c => c.CompanyType).Include(c => c.User);
+            return View(companies.ToList());
         }
 
-        // GET: People/Details/5
+        // GET: Companies/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            Company company = db.Companies.Find(id);
+            if (company == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
-        }
-        public ActionResult ViewApplicants()
-        {
-            return View();
+            return View(company);
         }
 
-        // GET: People/Create
+        // GET: Companies/Create
         public ActionResult Create()
         {
             ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName");
+            ViewBag.CompanyTypeID = new SelectList(db.CompanyTypes, "CompanyTypeID", "Description");
             ViewBag.UserID = new SelectList(db.Users, "UserID", "Username");
             return View();
         }
 
-        // POST: People/Create
+        // POST: Companies/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PersonID,PersonName,PersonSurname,PersonCell,PersonEmail,CriminalRecord,UserID,JobID,CityID")] Person person)
+        public ActionResult Create([Bind(Include = "CompanyID,CompanyName,PhoneNo,Email,Website,CompanyTypeID,UserID,CityID")] Company company)
         {
             if (ModelState.IsValid)
             {
-                db.People.Add(person);
+                db.Companies.Add(company);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", person.CityID);
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username", person.UserID);
-            return View(person);
+            ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", company.CityID);
+            ViewBag.CompanyTypeID = new SelectList(db.CompanyTypes, "CompanyTypeID", "Description", company.CompanyTypeID);
+            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username", company.UserID);
+            return View(company);
         }
 
-        // GET: People/Edit/5
+        // GET: Companies/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            Company company = db.Companies.Find(id);
+            if (company == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", person.CityID);
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username", person.UserID);
-            return View(person);
+            ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", company.CityID);
+            ViewBag.CompanyTypeID = new SelectList(db.CompanyTypes, "CompanyTypeID", "Description", company.CompanyTypeID);
+            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username", company.UserID);
+            return View(company);
         }
 
-        // POST: People/Edit/5
+        // POST: Companies/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PersonID,PersonName,PersonSurname,PersonCell,PersonEmail,CriminalRecord,UserID,JobID,CityID")] Person person)
+        public ActionResult Edit([Bind(Include = "CompanyID,CompanyName,PhoneNo,Email,Website,CompanyTypeID,UserID,CityID")] Company company)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(person).State = EntityState.Modified;
+                db.Entry(company).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", person.CityID);
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username", person.UserID);
-            return View(person);
+            ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", company.CityID);
+            ViewBag.CompanyTypeID = new SelectList(db.CompanyTypes, "CompanyTypeID", "Description", company.CompanyTypeID);
+            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username", company.UserID);
+            return View(company);
         }
 
-        // GET: People/Delete/5
+        // GET: Companies/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            Company company = db.Companies.Find(id);
+            if (company == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(company);
         }
 
-        // POST: People/Delete/5
+        // POST: Companies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Person person = db.People.Find(id);
-            db.People.Remove(person);
+            Company company = db.Companies.Find(id);
+            db.Companies.Remove(company);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-       
 
         protected override void Dispose(bool disposing)
         {

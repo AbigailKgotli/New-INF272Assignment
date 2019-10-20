@@ -22,8 +22,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home Page", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Register Person", "About", "Home")</li>
-                    <li>@Html.ActionLink("Job Opportunities", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Register Person", "Index", "People")</>
+                    <li>@Html.ActionLink("Company Registration", "Index", "Companies")</li>
+                    <li>@Html.ActionLink("Register Person", "Index", "People")</li>
+                    <li>@Html.ActionLink("View Applicants", "Index", "People")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
