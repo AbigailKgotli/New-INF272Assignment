@@ -28,12 +28,10 @@ namespace Deliverable4.Models
         public string PersonCell { get; set; }
         public string PersonEmail { get; set; }
         public string CriminalRecord { get; set; }
-        public int UserID { get; set; }
         public int JobID { get; set; }
         public int CityID { get; set; }
     
         public virtual City City { get; set; }
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonLanguage> PersonLanguages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

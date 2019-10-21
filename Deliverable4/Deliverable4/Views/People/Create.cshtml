@@ -1,53 +1,88 @@
 ﻿@model Deliverable4.Models.Person
+<div style="background-color:darkgray">
+    @{
+        ViewBag.Title = "Create";
+    }
 
-@{
-    ViewBag.Title = "Register User";
-}
-
-<h2>Register User</h2>
-
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-
-    <label for="FName">First Name:</label><br />
-    <input id="Name" type="text" name="Name" required /> <br />
-
-    <label for="Lastname">Last Name:</label><br />
-    <input id="LName" type="text" name="LName" required /> <br />
-
-    <label for="ID">ID:</label><br />
-    <input id="ID" type="text" name="ID" required /> <br />
-
-    <label for="Cell">Cellphone number:</label><br />
-    <input id="Cell" type="text" name="Cell" required /> <br />
-
-    <label for="Email">Email address:</label><br />
-    <input id="Email" type="text" name="Email" required /> <br />
-
-    <label for="UserID">UserID:</label><br />
-    <input id="UserID" type="text" name="UserID" required /> <br />
-
-    <label for="CityID">CityID:</label><br />
-    <input id="CityID" type="text" name="CityID" required /> <br />
+    <h2 style="background-color:aqua;font-family:cursive;font-size:x-large;text-align:center">Welcome to JobIT Register page</h2>
 
 
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-    <input type="checkbox" name="Criminal Record" value="Criminal Record" />
-    <label for="Criminal Record">Criminal Record:</label><br />
+        <div class="form-horizontal">
+            <h4></h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.PersonName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PersonName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PersonName, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
+            <div class="form-group">
+                @Html.LabelFor(model => model.PersonSurname, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PersonSurname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PersonSurname, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    @*<button type="submit">Register</button>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.PersonCell, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PersonCell, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PersonCell, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <input id="btnHome" style="text-align:center" type="button" name="RegisterUser" value="RegisterUser" onclick="location.href='@Url.Action("Create", "People", FormMethod.Get)'" /><br />
+            <div class="form-group">
+                @Html.LabelFor(model => model.PersonEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PersonEmail, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PersonEmail, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <input id="btn" type="button" name="Home" value="Back" onclick="location.href='@Url.Action("Homepage", "People", FormMethod.Get)'" />
-}
-<div>
-    @Html.ActionLink("Back to List", "Index")
+            <div class="form-group">
+                @Html.LabelFor(model => model.CriminalRecord, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CriminalRecord, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CriminalRecord, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.JobID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.JobID, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.JobID, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CityID, "CityName", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("CityID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Resgister" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

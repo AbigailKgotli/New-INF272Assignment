@@ -17,12 +17,15 @@ namespace Deliverable4.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Language()
         {
+            this.JobLanguages = new HashSet<JobLanguage>();
             this.PersonLanguages = new HashSet<PersonLanguage>();
         }
     
         public int LanguageID { get; set; }
         public string Description { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JobLanguage> JobLanguages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonLanguage> PersonLanguages { get; set; }
     }

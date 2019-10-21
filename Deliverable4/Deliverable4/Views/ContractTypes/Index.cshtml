@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Deliverable4.Models.ContractType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ContractType1)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContractType1)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ContractTypeID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ContractTypeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ContractTypeID })
+        </td>
+    </tr>
+}
+
+</table>
