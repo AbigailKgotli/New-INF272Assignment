@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Deliverable4.Models;
 
-namespace Deliverable4.Controllers
+namespace Deliverable4.Views
 {
     public class CompaniesController : Controller
     {
@@ -17,7 +17,8 @@ namespace Deliverable4.Controllers
         // GET: Companies
         public ActionResult Index()
         {
-            var companies = db.Companies.Include(c => c.City).Include(c => c.CompanyType).Include(c => c.User);
+
+            var companies = db.Companies.Include(c => c.City);
             return View(companies.ToList());
         }
 
@@ -40,8 +41,6 @@ namespace Deliverable4.Controllers
         public ActionResult Create()
         {
             ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName");
-            ViewBag.CompanyTypeID = new SelectList(db.CompanyTypes, "CompanyTypeID", "Description");
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username");
             return View();
         }
 
@@ -50,19 +49,24 @@ namespace Deliverable4.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CompanyID,CompanyName,PhoneNo,Email,Website,CompanyTypeID,UserID,CityID")] Company company)
+        public ActionResult Create([Bind(Include = "CompanyName,PhoneNo,Email,Website")] Company co)
         {
             if (ModelState.IsValid)
             {
-                db.Companies.Add(company);
+                db.Companies.Add(co);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            //List<City> c = db.Cities.ToList();
+            //ViewBag.CityName = new SelectList(c, "CityID", "CityName");
+            // ViewBag.Usee = new SelectList(db.UserTypes.Select(zz => new { ID = zz.ID, Description = zz.ID + " - " + zz.Description }), "ID", "Description", user.UserType);
 
-            ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", company.CityID);
-            ViewBag.CompanyTypeID = new SelectList(db.CompanyTypes, "CompanyTypeID", "Description", company.CompanyTypeID);
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username", company.UserID);
-            return View(company);
+            //ViewBag.ProvinceName = new SelectList(db.Provinces.Select(zz => zz.ProvinceName), "ProvinceName");
+            //ViewBag.CityName = new SelectList(db.Cities.Select(zz => zz.CityName), "CityName");
+            //List<Province> prov = db.Provinces.ToList();
+            //ViewBag.ProvinceName = new SelectList(prov, "ProvinceID", "ProvinceName");
+            ViewBag.CityID = new SelectList(db.Cities.Select(zz => new { CityName = zz.CityName }), "CityID", "CityName", co.CityID);
+            return View(co);
         }
 
         // GET: Companies/Edit/5
@@ -78,8 +82,7 @@ namespace Deliverable4.Controllers
                 return HttpNotFound();
             }
             ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", company.CityID);
-            ViewBag.CompanyTypeID = new SelectList(db.CompanyTypes, "CompanyTypeID", "Description", company.CompanyTypeID);
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username", company.UserID);
+
             return View(company);
         }
 
@@ -88,7 +91,7 @@ namespace Deliverable4.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CompanyID,CompanyName,PhoneNo,Email,Website,CompanyTypeID,UserID,CityID")] Company company)
+        public ActionResult Edit([Bind(Include = "CompanyID,CompanyName,PhoneNo,Email,Website,CityID")] Company company)
         {
             if (ModelState.IsValid)
             {
@@ -96,9 +99,8 @@ namespace Deliverable4.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", company.CityID);
-            ViewBag.CompanyTypeID = new SelectList(db.CompanyTypes, "CompanyTypeID", "Description", company.CompanyTypeID);
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username", company.UserID);
+            // ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", company.CityID);
+            ViewBag.CityID = new SelectList(db.Cities.Select(zz => new { CityName = zz.CityName }), "CityID", "CityName", company.CityID);
             return View(company);
         }
 
