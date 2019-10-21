@@ -1,0 +1,78 @@
+﻿
+@model IEnumerable<Deliverable4.Models.Job>
+
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "ViewJobs")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.JobTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpiryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CriminalRecord)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City.CityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Company.CompanyName)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.ContractType.ContractType1)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salary)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpiryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CriminalRecord)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City.CityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.CompanyName)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContractType.ContractType1)
+                </td>
+                <td>
+                    @*<input class="btn btn-primary" id="btn" type="button" name="ViewJob" value="View Job" onclick="location.href='@Url.Action("ViewJobs", "Jobs", new { id = item.JobID }) FormMethod.Get)'" />
+                    <input class="btn btn-primary" id="btn" type="button" name="Details" value="More Info" onclick="location.href='@Url.Action("Details", "Jobs", new { id = item.JobID }) FormMethod.Get)'" />*@
+                    @Html.ActionLink("Details", "More Info", new { id = item.JobID }) |
+                    @Html.ActionLink("Delete", "Apply", new { id = item.JobID })
+                </td>
+            </tr>
+        }
+
+    </table>

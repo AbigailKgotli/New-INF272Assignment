@@ -12,7 +12,7 @@ namespace Deliverable4.Controllers
 {
     public class UserTypesController : Controller
     {
-        private JobItDBEntities db = new JobItDBEntities();
+        private JobItDBEntities1 db = new JobItDBEntities1();
 
         // GET: UserTypes
         public ActionResult Index()

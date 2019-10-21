@@ -10,112 +10,107 @@ using Deliverable4.Models;
 
 namespace Deliverable4.Controllers
 {
-    public class UsersController : Controller
+    public class ContractTypesController : Controller
     {
         private JobItDBEntities1 db = new JobItDBEntities1();
 
-        // GET: Users
+        // GET: ContractTypes
         public ActionResult Index()
         {
-            var users = db.Users.Include(u => u.UserType);
-            return View(users.ToList());
+            return View(db.ContractTypes.ToList());
         }
 
-        // GET: Users/Details/5
+        // GET: ContractTypes/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            ContractType contractType = db.ContractTypes.Find(id);
+            if (contractType == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(contractType);
         }
 
-        // GET: Users/Create
+        // GET: ContractTypes/Create
         public ActionResult Create()
         {
-            ViewBag.UserTypeID = new SelectList(db.UserTypes, "UserTypeID", "Description");
             return View();
         }
 
-        // POST: Users/Create
+        // POST: ContractTypes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,Username,UserPassword,UserTypeID")] User user)
+        public ActionResult Create([Bind(Include = "ContractTypeID,ContractType1")] ContractType contractType)
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
+                db.ContractTypes.Add(contractType);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserTypeID = new SelectList(db.UserTypes, "UserTypeID", "Description", user.UserTypeID);
-            return View(user);
+            return View(contractType);
         }
 
-        // GET: Users/Edit/5
+        // GET: ContractTypes/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            ContractType contractType = db.ContractTypes.Find(id);
+            if (contractType == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.UserTypeID = new SelectList(db.UserTypes, "UserTypeID", "Description", user.UserTypeID);
-            return View(user);
+            return View(contractType);
         }
 
-        // POST: Users/Edit/5
+        // POST: ContractTypes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,Username,UserPassword,UserTypeID")] User user)
+        public ActionResult Edit([Bind(Include = "ContractTypeID,ContractType1")] ContractType contractType)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
+                db.Entry(contractType).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserTypeID = new SelectList(db.UserTypes, "UserTypeID", "Description", user.UserTypeID);
-            return View(user);
+            return View(contractType);
         }
 
-        // GET: Users/Delete/5
+        // GET: ContractTypes/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            ContractType contractType = db.ContractTypes.Find(id);
+            if (contractType == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(contractType);
         }
 
-        // POST: Users/Delete/5
+        // POST: ContractTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
+            ContractType contractType = db.ContractTypes.Find(id);
+            db.ContractTypes.Remove(contractType);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

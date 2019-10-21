@@ -12,12 +12,13 @@ namespace Deliverable4.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class JobLanguage
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int JobLanguageID { get; set; }
+        public Nullable<int> JobID { get; set; }
+        public Nullable<int> LangaugeID { get; set; }
+    
+        public virtual Job Job { get; set; }
+        public virtual Language Language { get; set; }
     }
 }

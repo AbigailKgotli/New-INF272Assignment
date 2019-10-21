@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Deliverable4.Models.Person>
 
 @{
-    ViewBag.Title = "View Applicants";
+    ViewBag.Title = "Applicants";
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "ViewApplicants")
 </p>
 <table class="table">
     <tr>
@@ -31,9 +31,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.City.CityName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.Username)
         </th>
         <th></th>
     </tr>
@@ -63,8 +60,13 @@
                 @Html.DisplayFor(modelItem => item.City.CityName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Username)
+                @*<input class="btn btn-primary" id="btn" type="button" name="ViewApplicants" value="View Applicants" onclick="location.href='@Url.Action("Details", "People", new { id = item.PersonID }) FormMethod.Get)'" />
+                <input class="btn btn-primary" id="btn" type="button" name="Details" value="More Info" onclick="location.href='@Url.Action("Delete", "People", new { id = item.PersonID }) FormMethod.Get)'" />*@
+                @Html.ActionLink("Details", "Details", new { id = item.PersonID }) |
+                @Html.ActionLink("Delete", "Contact", new { id = item.PersonID })
             </td>
-            </tr>
+        </tr>
     }
-       </table>     
+
+</table>
+

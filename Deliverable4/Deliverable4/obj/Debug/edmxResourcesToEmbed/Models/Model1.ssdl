@@ -17,16 +17,7 @@
     <Property Name="PhoneNo" Type="nchar" MaxLength="10" />
     <Property Name="Email" Type="nchar" MaxLength="10" />
     <Property Name="Website" Type="varchar" MaxLength="50" />
-    <Property Name="CompanyTypeID" Type="int" />
-    <Property Name="UserID" Type="int" />
     <Property Name="CityID" Type="int" />
-  </EntityType>
-  <EntityType Name="CompanyType">
-    <Key>
-      <PropertyRef Name="CompanyTypeID" />
-    </Key>
-    <Property Name="CompanyTypeID" Type="int" Nullable="false" />
-    <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
   </EntityType>
   <EntityType Name="ContractType">
     <Key>
@@ -39,7 +30,7 @@
     <Key>
       <PropertyRef Name="JobID" />
     </Key>
-    <Property Name="JobID" Type="int" Nullable="false" />
+    <Property Name="JobID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="JobTitle" Type="nchar" MaxLength="10" />
     <Property Name="Salary" Type="int" />
     <Property Name="DateAdded" Type="datetime" />
@@ -49,6 +40,16 @@
     <Property Name="CompanyID" Type="int" Nullable="false" />
     <Property Name="CityID" Type="int" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'JobItDB.dbo.JobLanguage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="JobLanguage">
+    <Key>
+      <PropertyRef Name="JobLanguageID" />
+    </Key>
+    <Property Name="JobLanguageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobID" Type="int" />
+    <Property Name="LangaugeID" Type="int" />
+  </EntityType>
   <EntityType Name="JobQualification">
     <Key>
       <PropertyRef Name="JobQualificationID" />
@@ -56,6 +57,16 @@
     <Property Name="JobQualificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="JobID" Type="int" Nullable="false" />
     <Property Name="QualificationID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'JobItDB.dbo.JobSkill' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="JobSkill">
+    <Key>
+      <PropertyRef Name="JobSkillID" />
+    </Key>
+    <Property Name="JobSkillID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobID" Type="int" />
+    <Property Name="SkillID" Type="int" />
   </EntityType>
   <EntityType Name="Language">
     <Key>
@@ -74,7 +85,6 @@
     <Property Name="PersonCell" Type="varchar" MaxLength="50" />
     <Property Name="PersonEmail" Type="varchar" MaxLength="50" />
     <Property Name="CriminalRecord" Type="varchar" MaxLength="50" />
-    <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="JobID" Type="int" Nullable="false" />
     <Property Name="CityID" Type="int" Nullable="false" />
   </EntityType>
@@ -98,7 +108,7 @@
     <Key>
       <PropertyRef Name="PersonSkillID" />
     </Key>
-    <Property Name="PersonSkillID" Type="int" Nullable="false" />
+    <Property Name="PersonSkillID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PersonID" Type="int" Nullable="false" />
     <Property Name="SkillID" Type="int" Nullable="false" />
   </EntityType>
@@ -122,16 +132,6 @@
     </Key>
     <Property Name="SkillID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SkillDescription" Type="varchar" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -172,34 +172,6 @@
       </Principal>
       <Dependent Role="Company">
         <PropertyRef Name="CityID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Company_CompanyType">
-    <End Role="CompanyType" Type="Self.CompanyType" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Company" Type="Self.Company" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CompanyType">
-        <PropertyRef Name="CompanyTypeID" />
-      </Principal>
-      <Dependent Role="Company">
-        <PropertyRef Name="CompanyTypeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Company_User">
-    <End Role="User" Type="Self.User" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Company" Type="Self.Company" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="Company">
-        <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -245,6 +217,34 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_JobLanguage_Job">
+    <End Role="Job" Type="Self.Job" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="JobLanguage" Type="Self.JobLanguage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="JobID" />
+      </Principal>
+      <Dependent Role="JobLanguage">
+        <PropertyRef Name="JobID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobLanguage_Language">
+    <End Role="Language" Type="Self.Language" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="JobLanguage" Type="Self.JobLanguage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="LanguageID" />
+      </Principal>
+      <Dependent Role="JobLanguage">
+        <PropertyRef Name="LangaugeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_JobQualification_Job">
     <End Role="Job" Type="Self.Job" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -273,6 +273,34 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_JobSkill_Job">
+    <End Role="Job" Type="Self.Job" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="JobSkill" Type="Self.JobSkill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="JobID" />
+      </Principal>
+      <Dependent Role="JobSkill">
+        <PropertyRef Name="JobID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobSkill_Skill">
+    <End Role="Skill" Type="Self.Skill" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="JobSkill" Type="Self.JobSkill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skill">
+        <PropertyRef Name="SkillID" />
+      </Principal>
+      <Dependent Role="JobSkill">
+        <PropertyRef Name="SkillID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Person_City">
     <End Role="City" Type="Self.City" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -284,18 +312,6 @@
       </Principal>
       <Dependent Role="Person">
         <PropertyRef Name="CityID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Person_User">
-    <End Role="User" Type="Self.User" Multiplicity="1" />
-    <End Role="Person" Type="Self.Person" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="Person">
-        <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -400,7 +416,6 @@
   <EntityContainer Name="JobItDBModelStoreContainer">
     <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="CompanyType" EntityType="Self.CompanyType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContractType" EntityType="Self.ContractType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="JobQualification" EntityType="Self.JobQualification" Schema="dbo" store:Type="Tables" />
@@ -412,23 +427,28 @@
     <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Qualification" EntityType="Self.Qualification" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Skill" EntityType="Self.Skill" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobLanguage" EntityType="Self.JobLanguage" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [JobLanguage].[JobLanguageID] AS [JobLanguageID], 
+    [JobLanguage].[JobID] AS [JobID], 
+    [JobLanguage].[LangaugeID] AS [LangaugeID]
+    FROM [dbo].[JobLanguage] AS [JobLanguage]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="JobSkill" EntityType="Self.JobSkill" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [JobSkill].[JobSkillID] AS [JobSkillID], 
+    [JobSkill].[JobID] AS [JobID], 
+    [JobSkill].[SkillID] AS [SkillID]
+    FROM [dbo].[JobSkill] AS [JobSkill]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_City_Province" Association="Self.FK_City_Province">
       <End Role="Province" EntitySet="Province" />
       <End Role="City" EntitySet="City" />
     </AssociationSet>
     <AssociationSet Name="FK_Company_City" Association="Self.FK_Company_City">
       <End Role="City" EntitySet="City" />
-      <End Role="Company" EntitySet="Company" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Company_CompanyType" Association="Self.FK_Company_CompanyType">
-      <End Role="CompanyType" EntitySet="CompanyType" />
-      <End Role="Company" EntitySet="Company" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Company_User" Association="Self.FK_Company_User">
-      <End Role="User" EntitySet="User" />
       <End Role="Company" EntitySet="Company" />
     </AssociationSet>
     <AssociationSet Name="FK_Job_City" Association="Self.FK_Job_City">
@@ -443,6 +463,14 @@
       <End Role="ContractType" EntitySet="ContractType" />
       <End Role="Job" EntitySet="Job" />
     </AssociationSet>
+    <AssociationSet Name="FK_JobLanguage_Job" Association="Self.FK_JobLanguage_Job">
+      <End Role="Job" EntitySet="Job" />
+      <End Role="JobLanguage" EntitySet="JobLanguage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobLanguage_Language" Association="Self.FK_JobLanguage_Language">
+      <End Role="Language" EntitySet="Language" />
+      <End Role="JobLanguage" EntitySet="JobLanguage" />
+    </AssociationSet>
     <AssociationSet Name="FK_JobQualification_Job" Association="Self.FK_JobQualification_Job">
       <End Role="Job" EntitySet="Job" />
       <End Role="JobQualification" EntitySet="JobQualification" />
@@ -451,12 +479,16 @@
       <End Role="Qualification" EntitySet="Qualification" />
       <End Role="JobQualification" EntitySet="JobQualification" />
     </AssociationSet>
+    <AssociationSet Name="FK_JobSkill_Job" Association="Self.FK_JobSkill_Job">
+      <End Role="Job" EntitySet="Job" />
+      <End Role="JobSkill" EntitySet="JobSkill" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobSkill_Skill" Association="Self.FK_JobSkill_Skill">
+      <End Role="Skill" EntitySet="Skill" />
+      <End Role="JobSkill" EntitySet="JobSkill" />
+    </AssociationSet>
     <AssociationSet Name="FK_Person_City" Association="Self.FK_Person_City">
       <End Role="City" EntitySet="City" />
-      <End Role="Person" EntitySet="Person" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Person_User" Association="Self.FK_Person_User">
-      <End Role="User" EntitySet="User" />
       <End Role="Person" EntitySet="Person" />
     </AssociationSet>
     <AssociationSet Name="FK_PersonLanguage_Language" Association="Self.FK_PersonLanguage_Language">

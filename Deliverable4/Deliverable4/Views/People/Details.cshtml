@@ -1,10 +1,10 @@
 ﻿@model Deliverable4.Models.Person
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "More Info";
 }
 
-<h2>Details</h2>
+<h2>More Info</h2>
 
 <div>
     <h4>Person</h4>
@@ -66,17 +66,9 @@
             @Html.DisplayFor(model => model.City.CityName)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Username)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.Username)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PersonID }) |
-    @Html.ActionLink("Back to List", "Index")
+ 
+    @Html.ActionLink("Back to List", "ViewApplicants")
 </p>

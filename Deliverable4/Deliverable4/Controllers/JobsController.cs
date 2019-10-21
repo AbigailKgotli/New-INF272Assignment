@@ -12,7 +12,7 @@ namespace Deliverable4.Controllers
 {
     public class JobsController : Controller
     {
-        private JobItDBEntities db = new JobItDBEntities();
+        private JobItDBEntities1 db = new JobItDBEntities1();
 
         // GET: Jobs
         public ActionResult Index()
@@ -34,6 +34,12 @@ namespace Deliverable4.Controllers
                 return HttpNotFound();
             }
             return View(job);
+        }
+        public ActionResult ViewJobs()
+        {
+            JobItDBEntities1 entities = new JobItDBEntities1();
+            return View(from Job in entities.Jobs.Take(10)
+                        select Job);
         }
 
         // GET: Jobs/Create

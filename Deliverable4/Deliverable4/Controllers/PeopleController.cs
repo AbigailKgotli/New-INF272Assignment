@@ -12,12 +12,12 @@ namespace Deliverable4.Controllers
 {
     public class PeopleController : Controller
     {
-        private JobItDBEntities db = new JobItDBEntities();
+        private JobItDBEntities1 db = new JobItDBEntities1();
 
         // GET: People
         public ActionResult Index()
         {
-            var people = db.People.Include(p => p.City).Include(p => p.User);
+            var people = db.People.Include(p => p.City);
             return View(people.ToList());
         }
 
@@ -35,25 +35,25 @@ namespace Deliverable4.Controllers
             }
             return View(person);
         }
-        public ActionResult ViewApplicants()
-        {
-            return View();
-        }
 
         // GET: People/Create
         public ActionResult Create()
         {
             ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName");
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username");
             return View();
         }
-
+        public ActionResult ViewApplicants()
+        {
+            JobItDBEntities1 entities = new JobItDBEntities1();
+            return View(from Person in entities.People.Take(10)
+                        select Person);
+        }
         // POST: People/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PersonID,PersonName,PersonSurname,PersonCell,PersonEmail,CriminalRecord,UserID,JobID,CityID")] Person person)
+        public ActionResult Create([Bind(Include = "PersonID,PersonName,PersonSurname,PersonCell,PersonEmail,CriminalRecord,JobID,CityID")] Person person)
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +63,6 @@ namespace Deliverable4.Controllers
             }
 
             ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", person.CityID);
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username", person.UserID);
             return View(person);
         }
 
@@ -80,7 +79,6 @@ namespace Deliverable4.Controllers
                 return HttpNotFound();
             }
             ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", person.CityID);
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username", person.UserID);
             return View(person);
         }
 
@@ -89,7 +87,7 @@ namespace Deliverable4.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PersonID,PersonName,PersonSurname,PersonCell,PersonEmail,CriminalRecord,UserID,JobID,CityID")] Person person)
+        public ActionResult Edit([Bind(Include = "PersonID,PersonName,PersonSurname,PersonCell,PersonEmail,CriminalRecord,JobID,CityID")] Person person)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +96,6 @@ namespace Deliverable4.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName", person.CityID);
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username", person.UserID);
             return View(person);
         }
 
@@ -127,7 +124,6 @@ namespace Deliverable4.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-       
 
         protected override void Dispose(bool disposing)
         {

@@ -17,7 +17,9 @@ namespace Deliverable4.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Job()
         {
+            this.JobLanguages = new HashSet<JobLanguage>();
             this.JobQualifications = new HashSet<JobQualification>();
+            this.JobSkills = new HashSet<JobSkill>();
         }
     
         public int JobID { get; set; }
@@ -34,6 +36,10 @@ namespace Deliverable4.Models
         public virtual Company Company { get; set; }
         public virtual ContractType ContractType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JobLanguage> JobLanguages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JobQualification> JobQualifications { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JobSkill> JobSkills { get; set; }
     }
 }

@@ -12,13 +12,13 @@ namespace Deliverable4.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class JobSkill
     {
-        public int UserID { get; set; }
-        public string Username { get; set; }
-        public string UserPassword { get; set; }
-        public int UserTypeID { get; set; }
+        public int JobSkillID { get; set; }
+        public Nullable<int> JobID { get; set; }
+        public Nullable<int> SkillID { get; set; }
     
-        public virtual UserType UserType { get; set; }
+        public virtual Job Job { get; set; }
+        public virtual Skill Skill { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace Deliverable4.Models
         public Skill()
         {
             this.PersonSkills = new HashSet<PersonSkill>();
+            this.JobSkills = new HashSet<JobSkill>();
         }
     
         public int SkillID { get; set; }
@@ -25,5 +26,7 @@ namespace Deliverable4.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonSkill> PersonSkills { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JobSkill> JobSkills { get; set; }
     }
 }

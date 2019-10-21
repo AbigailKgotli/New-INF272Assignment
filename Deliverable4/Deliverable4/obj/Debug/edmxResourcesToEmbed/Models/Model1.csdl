@@ -21,21 +21,9 @@
     <Property Name="PhoneNo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="CompanyTypeID" Type="Int32" />
-    <Property Name="UserID" Type="Int32" />
     <Property Name="CityID" Type="Int32" />
     <NavigationProperty Name="City" Relationship="Self.FK_Company_City" FromRole="Company" ToRole="City" />
-    <NavigationProperty Name="CompanyType" Relationship="Self.FK_Company_CompanyType" FromRole="Company" ToRole="CompanyType" />
-    <NavigationProperty Name="User" Relationship="Self.FK_Company_User" FromRole="Company" ToRole="User" />
     <NavigationProperty Name="Jobs" Relationship="Self.FK_Job_Company" FromRole="Company" ToRole="Job" />
-  </EntityType>
-  <EntityType Name="CompanyType">
-    <Key>
-      <PropertyRef Name="CompanyTypeID" />
-    </Key>
-    <Property Name="CompanyTypeID" Type="Int32" Nullable="false" />
-    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Companies" Relationship="Self.FK_Company_CompanyType" FromRole="CompanyType" ToRole="Company" />
   </EntityType>
   <EntityType Name="ContractType">
     <Key>
@@ -49,7 +37,7 @@
     <Key>
       <PropertyRef Name="JobID" />
     </Key>
-    <Property Name="JobID" Type="Int32" Nullable="false" />
+    <Property Name="JobID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="JobTitle" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="Salary" Type="Int32" />
     <Property Name="DateAdded" Type="DateTime" Precision="3" />
@@ -61,7 +49,9 @@
     <NavigationProperty Name="City" Relationship="Self.FK_Job_City" FromRole="Job" ToRole="City" />
     <NavigationProperty Name="Company" Relationship="Self.FK_Job_Company" FromRole="Job" ToRole="Company" />
     <NavigationProperty Name="ContractType" Relationship="Self.FK_Job_ContractType" FromRole="Job" ToRole="ContractType" />
+    <NavigationProperty Name="JobLanguages" Relationship="Self.FK_JobLanguage_Job" FromRole="Job" ToRole="JobLanguage" />
     <NavigationProperty Name="JobQualifications" Relationship="Self.FK_JobQualification_Job" FromRole="Job" ToRole="JobQualification" />
+    <NavigationProperty Name="JobSkills" Relationship="Self.FK_JobSkill_Job" FromRole="Job" ToRole="JobSkill" />
   </EntityType>
   <EntityType Name="JobQualification">
     <Key>
@@ -79,6 +69,7 @@
     </Key>
     <Property Name="LanguageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="JobLanguages" Relationship="Self.FK_JobLanguage_Language" FromRole="Language" ToRole="JobLanguage" />
     <NavigationProperty Name="PersonLanguages" Relationship="Self.FK_PersonLanguage_Language" FromRole="Language" ToRole="PersonLanguage" />
   </EntityType>
   <EntityType Name="Person">
@@ -91,11 +82,9 @@
     <Property Name="PersonCell" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="PersonEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="CriminalRecord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="UserID" Type="Int32" Nullable="false" />
     <Property Name="JobID" Type="Int32" Nullable="false" />
     <Property Name="CityID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="City" Relationship="Self.FK_Person_City" FromRole="Person" ToRole="City" />
-    <NavigationProperty Name="User" Relationship="Self.FK_Person_User" FromRole="Person" ToRole="User" />
     <NavigationProperty Name="PersonLanguages" Relationship="Self.FK_PersonLanguage_Person" FromRole="Person" ToRole="PersonLanguage" />
     <NavigationProperty Name="PersonQualifications" Relationship="Self.FK_PersonQualification_Person" FromRole="Person" ToRole="PersonQualification" />
     <NavigationProperty Name="PersonSkills" Relationship="Self.FK_PersonSkill_Person" FromRole="Person" ToRole="PersonSkill" />
@@ -124,7 +113,7 @@
     <Key>
       <PropertyRef Name="PersonSkillID" />
     </Key>
-    <Property Name="PersonSkillID" Type="Int32" Nullable="false" />
+    <Property Name="PersonSkillID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PersonID" Type="Int32" Nullable="false" />
     <Property Name="SkillID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Person" Relationship="Self.FK_PersonSkill_Person" FromRole="PersonSkill" ToRole="Person" />
@@ -143,7 +132,7 @@
       <PropertyRef Name="QualificationID" />
     </Key>
     <Property Name="QualificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="QualificationDescription" Type="String" />
+    <Property Name="QualificationDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="JobQualifications" Relationship="Self.FK_JobQualification_Qualification" FromRole="Qualification" ToRole="JobQualification" />
     <NavigationProperty Name="PersonQualifications" Relationship="Self.FK_PersonQualification_Qualification" FromRole="Qualification" ToRole="PersonQualification" />
   </EntityType>
@@ -154,16 +143,7 @@
     <Property Name="SkillID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="SkillDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="PersonSkills" Relationship="Self.FK_PersonSkill_Skill" FromRole="Skill" ToRole="PersonSkill" />
-  </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="JobSkills" Relationship="Self.FK_JobSkill_Skill" FromRole="Skill" ToRole="JobSkill" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -173,8 +153,6 @@
     <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="UserTypeID" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Companies" Relationship="Self.FK_Company_User" FromRole="User" ToRole="Company" />
-    <NavigationProperty Name="People" Relationship="Self.FK_Person_User" FromRole="User" ToRole="Person" />
     <NavigationProperty Name="UserType" Relationship="Self.FK_User_UserType" FromRole="User" ToRole="UserType" />
   </EntityType>
   <EntityType Name="UserType">
@@ -184,6 +162,26 @@
     <Property Name="UserTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Users" Relationship="Self.FK_User_UserType" FromRole="UserType" ToRole="User" />
+  </EntityType>
+  <EntityType Name="JobLanguage">
+    <Key>
+      <PropertyRef Name="JobLanguageID" />
+    </Key>
+    <Property Name="JobLanguageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="JobID" Type="Int32" />
+    <Property Name="LangaugeID" Type="Int32" />
+    <NavigationProperty Name="Job" Relationship="Self.FK_JobLanguage_Job" FromRole="JobLanguage" ToRole="Job" />
+    <NavigationProperty Name="Language" Relationship="Self.FK_JobLanguage_Language" FromRole="JobLanguage" ToRole="Language" />
+  </EntityType>
+  <EntityType Name="JobSkill">
+    <Key>
+      <PropertyRef Name="JobSkillID" />
+    </Key>
+    <Property Name="JobSkillID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="JobID" Type="Int32" />
+    <Property Name="SkillID" Type="Int32" />
+    <NavigationProperty Name="Job" Relationship="Self.FK_JobSkill_Job" FromRole="JobSkill" ToRole="Job" />
+    <NavigationProperty Name="Skill" Relationship="Self.FK_JobSkill_Skill" FromRole="JobSkill" ToRole="Skill" />
   </EntityType>
   <Association Name="FK_City_Province">
     <End Role="Province" Type="Self.Province" Multiplicity="1">
@@ -239,34 +237,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Company_CompanyType">
-    <End Role="CompanyType" Type="Self.CompanyType" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Company" Type="Self.Company" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CompanyType">
-        <PropertyRef Name="CompanyTypeID" />
-      </Principal>
-      <Dependent Role="Company">
-        <PropertyRef Name="CompanyTypeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Company_User">
-    <End Role="User" Type="Self.User" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Company" Type="Self.Company" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="Company">
-        <PropertyRef Name="UserID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Job_Company">
     <End Role="Company" Type="Self.Company" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -295,6 +265,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_JobLanguage_Job">
+    <End Role="Job" Type="Self.Job" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="JobLanguage" Type="Self.JobLanguage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="JobID" />
+      </Principal>
+      <Dependent Role="JobLanguage">
+        <PropertyRef Name="JobID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_JobQualification_Job">
     <End Role="Job" Type="Self.Job" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -305,6 +289,20 @@
         <PropertyRef Name="JobID" />
       </Principal>
       <Dependent Role="JobQualification">
+        <PropertyRef Name="JobID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobSkill_Job">
+    <End Role="Job" Type="Self.Job" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="JobSkill" Type="Self.JobSkill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="JobID" />
+      </Principal>
+      <Dependent Role="JobSkill">
         <PropertyRef Name="JobID" />
       </Dependent>
     </ReferentialConstraint>
@@ -323,6 +321,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_JobLanguage_Language">
+    <End Role="Language" Type="Self.Language" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="JobLanguage" Type="Self.JobLanguage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="LanguageID" />
+      </Principal>
+      <Dependent Role="JobLanguage">
+        <PropertyRef Name="LangaugeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_PersonLanguage_Language">
     <End Role="Language" Type="Self.Language" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -334,18 +346,6 @@
       </Principal>
       <Dependent Role="PersonLanguage">
         <PropertyRef Name="LanguageID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Person_User">
-    <End Role="User" Type="Self.User" Multiplicity="1" />
-    <End Role="Person" Type="Self.Person" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="Person">
-        <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -419,6 +419,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_JobSkill_Skill">
+    <End Role="Skill" Type="Self.Skill" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="JobSkill" Type="Self.JobSkill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skill">
+        <PropertyRef Name="SkillID" />
+      </Principal>
+      <Dependent Role="JobSkill">
+        <PropertyRef Name="SkillID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_User_UserType">
     <End Role="UserType" Type="Self.UserType" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -433,10 +447,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="JobItDBEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="JobItDBEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Cities" EntityType="Self.City" />
     <EntitySet Name="Companies" EntityType="Self.Company" />
-    <EntitySet Name="CompanyTypes" EntityType="Self.CompanyType" />
     <EntitySet Name="ContractTypes" EntityType="Self.ContractType" />
     <EntitySet Name="Jobs" EntityType="Self.Job" />
     <EntitySet Name="JobQualifications" EntityType="Self.JobQualification" />
@@ -448,9 +461,10 @@
     <EntitySet Name="Provinces" EntityType="Self.Province" />
     <EntitySet Name="Qualifications" EntityType="Self.Qualification" />
     <EntitySet Name="Skills" EntityType="Self.Skill" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="UserTypes" EntityType="Self.UserType" />
+    <EntitySet Name="JobLanguages" EntityType="Self.JobLanguage" />
+    <EntitySet Name="JobSkills" EntityType="Self.JobSkill" />
     <AssociationSet Name="FK_City_Province" Association="Self.FK_City_Province">
       <End Role="Province" EntitySet="Provinces" />
       <End Role="City" EntitySet="Cities" />
@@ -467,14 +481,6 @@
       <End Role="City" EntitySet="Cities" />
       <End Role="Person" EntitySet="People" />
     </AssociationSet>
-    <AssociationSet Name="FK_Company_CompanyType" Association="Self.FK_Company_CompanyType">
-      <End Role="CompanyType" EntitySet="CompanyTypes" />
-      <End Role="Company" EntitySet="Companies" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Company_User" Association="Self.FK_Company_User">
-      <End Role="User" EntitySet="Users" />
-      <End Role="Company" EntitySet="Companies" />
-    </AssociationSet>
     <AssociationSet Name="FK_Job_Company" Association="Self.FK_Job_Company">
       <End Role="Company" EntitySet="Companies" />
       <End Role="Job" EntitySet="Jobs" />
@@ -483,21 +489,29 @@
       <End Role="ContractType" EntitySet="ContractTypes" />
       <End Role="Job" EntitySet="Jobs" />
     </AssociationSet>
+    <AssociationSet Name="FK_JobLanguage_Job" Association="Self.FK_JobLanguage_Job">
+      <End Role="Job" EntitySet="Jobs" />
+      <End Role="JobLanguage" EntitySet="JobLanguages" />
+    </AssociationSet>
     <AssociationSet Name="FK_JobQualification_Job" Association="Self.FK_JobQualification_Job">
       <End Role="Job" EntitySet="Jobs" />
       <End Role="JobQualification" EntitySet="JobQualifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobSkill_Job" Association="Self.FK_JobSkill_Job">
+      <End Role="Job" EntitySet="Jobs" />
+      <End Role="JobSkill" EntitySet="JobSkills" />
     </AssociationSet>
     <AssociationSet Name="FK_JobQualification_Qualification" Association="Self.FK_JobQualification_Qualification">
       <End Role="Qualification" EntitySet="Qualifications" />
       <End Role="JobQualification" EntitySet="JobQualifications" />
     </AssociationSet>
+    <AssociationSet Name="FK_JobLanguage_Language" Association="Self.FK_JobLanguage_Language">
+      <End Role="Language" EntitySet="Languages" />
+      <End Role="JobLanguage" EntitySet="JobLanguages" />
+    </AssociationSet>
     <AssociationSet Name="FK_PersonLanguage_Language" Association="Self.FK_PersonLanguage_Language">
       <End Role="Language" EntitySet="Languages" />
       <End Role="PersonLanguage" EntitySet="PersonLanguages" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Person_User" Association="Self.FK_Person_User">
-      <End Role="User" EntitySet="Users" />
-      <End Role="Person" EntitySet="People" />
     </AssociationSet>
     <AssociationSet Name="FK_PersonLanguage_Person" Association="Self.FK_PersonLanguage_Person">
       <End Role="Person" EntitySet="People" />
@@ -518,6 +532,10 @@
     <AssociationSet Name="FK_PersonSkill_Skill" Association="Self.FK_PersonSkill_Skill">
       <End Role="Skill" EntitySet="Skills" />
       <End Role="PersonSkill" EntitySet="PersonSkills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobSkill_Skill" Association="Self.FK_JobSkill_Skill">
+      <End Role="Skill" EntitySet="Skills" />
+      <End Role="JobSkill" EntitySet="JobSkills" />
     </AssociationSet>
     <AssociationSet Name="FK_User_UserType" Association="Self.FK_User_UserType">
       <End Role="UserType" EntitySet="UserTypes" />

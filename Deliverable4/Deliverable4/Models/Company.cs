@@ -25,13 +25,9 @@ namespace Deliverable4.Models
         public string PhoneNo { get; set; }
         public string Email { get; set; }
         public string Website { get; set; }
-        public Nullable<int> CompanyTypeID { get; set; }
-        public Nullable<int> UserID { get; set; }
         public Nullable<int> CityID { get; set; }
     
         public virtual City City { get; set; }
-        public virtual CompanyType CompanyType { get; set; }
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Job> Jobs { get; set; }
     }

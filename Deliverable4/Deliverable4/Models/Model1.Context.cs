@@ -13,10 +13,10 @@ namespace Deliverable4.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class JobItDBEntities : DbContext
+    public partial class JobItDBEntities1 : DbContext
     {
-        public JobItDBEntities()
-            : base("name=JobItDBEntities")
+        public JobItDBEntities1()
+            : base("name=JobItDBEntities1")
         {
         }
     
@@ -27,7 +27,6 @@ namespace Deliverable4.Models
     
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
-        public virtual DbSet<CompanyType> CompanyTypes { get; set; }
         public virtual DbSet<ContractType> ContractTypes { get; set; }
         public virtual DbSet<Job> Jobs { get; set; }
         public virtual DbSet<JobQualification> JobQualifications { get; set; }
@@ -39,8 +38,9 @@ namespace Deliverable4.Models
         public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<Qualification> Qualifications { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
+        public virtual DbSet<JobLanguage> JobLanguages { get; set; }
+        public virtual DbSet<JobSkill> JobSkills { get; set; }
     }
 }
